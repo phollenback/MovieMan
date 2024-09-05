@@ -1,15 +1,33 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import '../styles/LoginForm.css';
+
+// TOKEN
+import useToken from './useToken'
 
 function LoginForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
+  const {token, setToken} = useToken()
+
   const handleSubmit = (event) => {
-    event.preventDefault();
-    // Handle login logic here
-    console.log('Username:', username);
-    console.log('Password:', password);
+    event.preventDefault();  // Prevent default form submission
+  
+    axios.get('http://localhost:8000/login', {
+      params: {
+        user: username,  // Use the username and password from the state
+        pwd: password
+      }
+    })
+    .then((response) => {
+      // Assuming the token is returned in response.data.token
+      setToken(response.data.token);  // Pass only the token, not the entire response
+      console.log(response.data.token);  // Check that the token is being received correctly
+    })
+    .catch((error) => {
+      console.error(error);
+    });
   };
 
   return (

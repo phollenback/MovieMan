@@ -1,13 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+
+// COMPONENTS
 import Movie from './models/Movie';
 import MovieCard from './components/MovieCard';
 import SearchForm from './components/SearchForm';
 import Watchlist from './components/Watchlist';
 import LoginForm from './components/LoginForm';
+import useToken from './components/useToken'
 import './styles/App.css';
 
+
 function App() {
+
+  useEffect(() => {
+    
+  }, []);
+
   const [movies, setMovies] = useState([]);
   const [watchlist, setWatchlist] = useState([]);
 
@@ -46,6 +55,12 @@ function App() {
     setWatchlist(updatedWatchlist);
   };
 
+  const {token, setToken} = useToken()
+  
+  if(!token) {
+    return <LoginForm setToken={setToken}/>
+  }
+
   return (
     <div className="app-container">
       <div className="movies-container">
@@ -59,7 +74,6 @@ function App() {
         <button onClick={addToWatchlist} className="add-button">
           Add to Watchlist
         </button>
-        <LoginForm />
       </div>
 
       <Watchlist watchlist={watchlist} onRemove={removeFromWatchlist} />
