@@ -1,12 +1,16 @@
 // DEPENDENCIES
 const express = require('express');
+const cors = require('cors')
 
 // SERVICES
 const signUp = require('./Users/signUpService');
 const login = require('./Users/loginService');
 
-const app = express();
+// CONFIG
+const util = require('./config/jwtUtil')
 
+const app = express();
+app.use(cors())
 const port = 8000;
 
 app.get('/', (req, res) => {
@@ -40,18 +44,20 @@ app.get('/login', async (req, res) => {
     const pwd = req.query.pwd;
 
     console.log('Received user: ' + user + ' with the pwd: ' + pwd);
-    
+
     try {
-        // Ensure checkCred returns a promise that resolves with { user, token } or null
+        // get user from db
         const person = await login.checkCred(user, pwd);
 
-        if (person) {
-            // If person is valid, send the token
-            return res.json({ token: person.token });
-        } else {
-            // If no valid user found, respond with 401 Unauthorized
+        if (!person) {
             return res.status(401).send('Invalid credentials');
-        }
+        } 
+
+        // create jwt
+        const token = util.generateToken(person);
+
+        // If needed, you can send back the user data or any other response
+        return res.json({ token });
     } catch (error) {
         // Log the error and respond with a 500 Internal Server Error
         console.error('Error during login:', error);
