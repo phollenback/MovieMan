@@ -1,10 +1,10 @@
-/* Container for the entire app, ensuring it uses full viewport height and centers its content */
+/* General app layout */
 .app-container {
   display: flex;
   flex-direction: row;
-  justify-content: space-between; /* Ensure proper spacing between components */
+  justify-content: space-between; /* Space between movie card, search bar, and watchlist */
   padding: 20px;
-  gap: 20px; /* Space between main components */
+  gap: 20px;
   height: 100vh; /* Full viewport height */
   box-sizing: border-box;
 }
@@ -15,45 +15,52 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  border: 1px solid #ccc; /* Add border to match the Watchlist */
+  border: 1px solid #ccc;
   padding: 20px;
-  height: 100%; /* Full height of the parent container */
-  overflow-y: auto; /* Scroll if content overflows */
+  height: 100%;
+  overflow-y: auto;
   box-sizing: border-box;
 }
 
-/* Container for the search form and add button */
+/* Container for search form and add button */
 .search-add-container {
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  max-width: 400px; /* Adjust this value as needed */
-  border: 1px solid #ccc; /* Border to match the other components */
+  max-width: 400px;
+  border: 1px solid #ccc;
   padding: 20px;
-  height: 100%; /* Full height of the parent container */
+  height: 100%;
   box-sizing: border-box;
 }
 
-/* Styling for the add button */
 .add-button {
-  margin-bottom: 20px; /* Margin below the button */
+  padding: 10px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
-/* Container for the watchlist */
+.add-button:hover {
+  background-color: #218838;
+}
+
+/* Watchlist container */
 .watchlist-container {
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  border: 1px solid #ccc; /* Border to match the other components */
+  border: 1px solid #ccc;
   padding: 20px;
-  height: 100%; /* Full height of the parent container */
-  overflow-y: auto; /* Scroll when content overflows */
+  height: 100%;
+  overflow-y: auto;
   box-sizing: border-box;
 }
 
-/* Styling for individual watchlist items */
 .watchlist-item {
   display: flex;
   flex-direction: column;
@@ -66,14 +73,27 @@
   margin: 0;
 }
 
-/* Styling for the login form */
+/* Centering for login/signup form */
+.form-holder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full viewport height */
+  background-color: #f0f0f0;
+}
+
+/* Login form styling */
 .login-form {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  max-width: 300px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Styling for form groups in the login form */
 .form-group {
   display: flex;
   flex-direction: column;
@@ -89,7 +109,6 @@
   border-radius: 4px;
 }
 
-/* Styling for login form button */
 .login-form button {
   padding: 10px;
   border: none;
@@ -101,4 +120,22 @@
 
 .login-form button:hover {
   background-color: #0056b3;
+}
+
+/* Sign-up form styling */
+.sign-up-form {
+  margin-top: 20px;
+}
+
+.sign-up-form button {
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #28a745;
+  color: white;
+  cursor: pointer;
+}
+
+.sign-up-form button:hover {
+  background-color: #218838;
 }

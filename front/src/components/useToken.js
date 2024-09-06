@@ -1,16 +1,27 @@
 import { useState } from 'react';
 
 function useToken() {
+  // Retrieve token from localStorage and parse it
   const getToken = () => {
-    const tokenString = localStorage.getItem('token');
-    return tokenString ? JSON.parse(tokenString) : null;
+    try {
+      const tokenString = localStorage.getItem('token');
+      return tokenString ? JSON.parse(tokenString) : null;
+    } catch (error) {
+      console.error('Error retrieving token:', error);
+      return null;
+    }
   };
 
   const [token, setToken] = useState(getToken());
 
+  // Save token to localStorage and update state
   const saveToken = (userToken) => {
-    localStorage.setItem('token', JSON.stringify(userToken));
-    setToken(userToken);
+    try {
+      localStorage.setItem('token', JSON.stringify(userToken));
+      setToken(userToken);
+    } catch (error) {
+      console.error('Error saving token:', error);
+    }
   };
 
   return {
