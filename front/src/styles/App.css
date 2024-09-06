@@ -1,51 +1,79 @@
+/* Container for the entire app, ensuring it uses full viewport height and centers its content */
 .app-container {
   display: flex;
-  flex-direction: column;
-  height: 100vh;
-  padding: 20px;
-  gap: 20px;
-}
-
-.dashboard-container {
-  display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  gap: 20px;
-  flex: 1;
+  justify-content: space-between; /* Ensure proper spacing between components */
+  padding: 20px;
+  gap: 20px; /* Space between main components */
+  height: 100vh; /* Full viewport height */
+  box-sizing: border-box;
 }
 
+/* Container for the movie card */
 .movies-container {
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 20px;
+  border: 1px solid #ccc; /* Add border to match the Watchlist */
+  padding: 20px;
+  height: 100%; /* Full height of the parent container */
+  overflow-y: auto; /* Scroll if content overflows */
+  box-sizing: border-box;
 }
 
+/* Container for the search form and add button */
 .search-add-container {
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  max-width: 400px;
+  max-width: 400px; /* Adjust this value as needed */
+  border: 1px solid #ccc; /* Border to match the other components */
+  padding: 20px;
+  height: 100%; /* Full height of the parent container */
+  box-sizing: border-box;
 }
 
+/* Styling for the add button */
 .add-button {
-  margin-bottom: 20px;
+  margin-bottom: 20px; /* Margin below the button */
 }
 
+/* Container for the watchlist */
 .watchlist-container {
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 20px;
+  border: 1px solid #ccc; /* Border to match the other components */
+  padding: 20px;
+  height: 100%; /* Full height of the parent container */
+  overflow-y: auto; /* Scroll when content overflows */
+  box-sizing: border-box;
 }
 
+/* Styling for individual watchlist items */
+.watchlist-item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+.watchlist-item p {
+  margin: 0;
+}
+
+/* Styling for the login form */
 .login-form {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
+/* Styling for form groups in the login form */
 .form-group {
   display: flex;
   flex-direction: column;
@@ -61,6 +89,7 @@
   border-radius: 4px;
 }
 
+/* Styling for login form button */
 .login-form button {
   padding: 10px;
   border: none;

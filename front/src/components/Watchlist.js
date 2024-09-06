@@ -1,32 +1,25 @@
 import React from 'react';
-import '../styles/Watchlist.css';
+import '../styles/Watchlist.css'; // Import the CSS for Watchlist styling
 
-const Watchlist = ({ watchlist, onRemove }) => {
+function Watchlist({ watchlist, onRemove }) {
   return (
     <div className="watchlist-container">
       <h2>Watchlist</h2>
-      {watchlist.length === 0 ? (
-        <p>No movies added yet.</p>
-      ) : (
-        <div>
-          {watchlist.map((movie, index) => (
-            <div key={index} className="watchlist-item">
-              <span className="watchlist-index">{index + 1}.</span>
-              <span className="watchlist-title"><strong>Title:</strong> {movie.title}</span>
-              <span className="watchlist-rating"><strong>Rating:</strong> {movie.rating}</span>
-              <p className="watchlist-plot"><strong>Plot:</strong> {movie.plot}</p>
-              <button
-                className="remove-button"
-                onClick={() => onRemove(index)}
-              >
-                Remove
-              </button>
-            </div>
-          ))}
-        </div>
-      )}
+      <div className="watchlist-items">
+        {watchlist.map((movie, index) => (
+          <div key={index} className="watchlist-item">
+            <div className="watchlist-item-index">#{index + 1}</div>
+            <div className="watchlist-item-title">{movie.title}</div>
+            <div className="watchlist-item-plot">{movie.plot}</div>
+            <div className="watchlist-item-rating">Rating: {movie.rating}</div>
+            <button onClick={() => onRemove(index)} className="remove-button">
+              Remove
+            </button>
+          </div>
+        ))}
+      </div>
     </div>
   );
-};
+}
 
 export default Watchlist;

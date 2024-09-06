@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import axios from 'axios';
 
 // COMPONENTS
@@ -7,18 +8,13 @@ import MovieCard from './components/MovieCard';
 import SearchForm from './components/SearchForm';
 import Watchlist from './components/Watchlist';
 import LoginForm from './components/LoginForm';
-import useToken from './components/useToken'
+import useToken from './components/useToken';
 import './styles/App.css';
 
-
 function App() {
-
-  useEffect(() => {
-    
-  }, []);
-
   const [movies, setMovies] = useState([]);
   const [watchlist, setWatchlist] = useState([]);
+  const { token, setToken } = useToken();
 
   const searchKey = async (keyword) => {
     try {
@@ -55,29 +51,41 @@ function App() {
     setWatchlist(updatedWatchlist);
   };
 
-  const {token, setToken} = useToken()
-  
-  if(!token) {
-    return <LoginForm setToken={setToken}/>
-  }
-
   return (
-    <div className="app-container">
-      <div className="movies-container">
-        {movies.map((movie) => (
-          <MovieCard key={movie.title} movie={movie} />
-        ))}
-      </div>
+    <BrowserRouter>
+      <div className="app-container">
+        <Routes>
+          <Route path="/" element={!token ? <LoginForm setToken={setToken} /> : <Navigate to="/dashboard" />} />
+          <Route
+            path="/dashboard"
+            element={
+              token ? (
+                <div className="app-container">
+                  <div className="movies-container">
+                    {movies.map((movie) => (
+                      <MovieCard key={movie.title} movie={movie} />
+                    ))}
+                  </div>
 
-      <div className="search-add-container">
-        <SearchForm onSearch={searchKey} />
-        <button onClick={addToWatchlist} className="add-button">
-          Add to Watchlist
-        </button>
-      </div>
+                  <div className="search-add-container">
+                    <SearchForm onSearch={searchKey} />
+                    <button onClick={addToWatchlist} className="add-button">
+                      Add to Watchlist
+                    </button>
+                  </div>
 
-      <Watchlist watchlist={watchlist} onRemove={removeFromWatchlist} />
-    </div>
+                  <div className="watchlist-container">
+                    <Watchlist watchlist={watchlist} onRemove={removeFromWatchlist} />
+                  </div>
+                </div>
+              ) : (
+                <Navigate to="/" />
+              )
+            }
+          />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 
